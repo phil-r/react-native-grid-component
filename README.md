@@ -13,6 +13,7 @@
 - [ ] Example
 - [ ] Props description
 - [ ] Lint
+- [ ] Check iOS
 
 
 
