@@ -1,16 +1,60 @@
 # :black_square_button: [WIP] react-native-grid-component
 
-:construction::construction::construction::construction::construction::construction::construction::construction::construction::construction::construction::construction:
+## Installation
+
+`npm install react-native-grid-component --save`
+
+## Example
+
+```
+import React, { Component } from 'react';
+import {
+  StyleSheet,
+  View
+} from 'react-native';
+
+import Grid from 'react-native-grid-component';
+
+class Simple extends Component {
+
+  _renderItem = (data, i) => <View style={[{backgroundColor: data}, styles.item]} key={i}/>
+
+  render() {
+    return (
+      <Grid
+        style={styles.list}
+        renderItem={this._renderItem}
+        data={['black', 'white', 'red', 'green', 'blue']}
+        itemsPerRow={2}/>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  item: {
+    flex: 1,
+    height: 160,
+    margin: 1
+  },
+  list: {
+    flex: 1
+  },
+});
+
+```
+
+[Full example code](Examples/Simple)
+
 
 
 *WIP* *WIP* *WIP* *WIP* *WIP* *WIP* *WIP* *WIP*
 
-
+:construction::construction::construction::construction::construction::construction::construction::construction::construction::construction::construction::construction:
 
 *WIP* *WIP* *WIP* *WIP* *WIP* *WIP* *WIP* *WIP*
 
 ## TODO:
-- [ ] Example
+- [x] Example
 - [ ] Props description
 - [ ] Lint
 - [ ] Check iOS
