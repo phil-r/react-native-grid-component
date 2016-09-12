@@ -8,7 +8,7 @@
 
 ![android low](https://cloud.githubusercontent.com/assets/577316/18456263/d6b977e2-794f-11e6-878f-5737355111ac.gif) ![ios low](https://cloud.githubusercontent.com/assets/577316/18456262/d6b7a39a-794f-11e6-8587-06757dc42e14.gif)
 
-```
+```js
 import React, { Component } from 'react';
 import {
   StyleSheet,
