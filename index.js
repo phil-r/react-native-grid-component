@@ -1,6 +1,7 @@
 /**
  * React Native Grid Component
  * https://github.com/phil-r/react-native-grid-component
+ * @flow
  */
 
 import React, { Component } from 'react';
@@ -15,9 +16,25 @@ const {height, width} = Dimensions.get('window');
 
 // http://stackoverflow.com/questions/8495687/split-array-into-chunks
 // I don't see the reason to take lodash.chunk for this
-const chunk = (arr, n) => Array.from(Array(Math.ceil(arr.length/n)), (_,i)=>arr.slice(i*n,i*n+n));
+const chunk = (arr: Array<any>, n: number): Array<Array<any>> => Array.from(Array(Math.ceil(arr.length/n)), (_,i)=>arr.slice(i*n,i*n+n));
+
+type Props = {
+  itemsPerRow: number,
+  onEndReached: () => void,
+  rowHasChanged: (data1: any, data2: any) => boolean,
+  renderItem: (data: any, i: number) => void,
+  renderPlaceholder: (i: number) => void,
+  data: Array<any>
+};
+
+type State = {
+  dataSource: ListView.DataSource
+};
 
 export default class Grid extends Component {
+  props: Props;
+  state: State;
+
   static defaultProps = {
     itemsPerRow: 3,
     onEndReached() {},
@@ -25,7 +42,7 @@ export default class Grid extends Component {
       return r1 !== r2;
     }
   }
-  constructor(props) {
+  constructor(props: Object) {
     super(props);
 
     const ds = new ListView.DataSource({
@@ -36,15 +53,15 @@ export default class Grid extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Object) {
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(this._prepareData(nextProps.data))
     });
   }
 
-  _renderPlaceholder = (i) => (<View key={i} style={{ width: width / this.props.itemsPerRow}} />);
+  _renderPlaceholder = (i: number) => (<View key={i} style={{ width: width / this.props.itemsPerRow}} />);
 
-  _prepareData = (data) => {
+  _prepareData = (data: Array<any>) => {
     const rows = chunk(data, this.props.itemsPerRow);
     if (rows.length) {
       const lastRow = rows[rows.length-1];
@@ -55,7 +72,7 @@ export default class Grid extends Component {
     return rows;
   }
 
-  _renderRow = (rowData, sectionID, rowID) => {
+  _renderRow = (rowData: Array<any>, sectionID: number, rowID: number) => {
     return (
       <View style={styles.row}>
         {rowData.map((item, i) => {
