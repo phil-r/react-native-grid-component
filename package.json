@@ -1,6 +1,6 @@
 {
   "name": "react-native-grid-component",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "React native grid component",
   "main": "index.js",
   "scripts": {
