@@ -1,3 +1,7 @@
+/**
+ * @flow
+ */
+
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -7,7 +11,9 @@ import {
 import Grid from 'react-native-grid-component';
 
 export default class Simple extends Component {
-  constructor(props) {
+  state: {data: Array<any>};
+
+  constructor(props: Object) {
     super(props);
 
     this.state = {
@@ -15,7 +21,7 @@ export default class Simple extends Component {
     };
   }
 
-  _renderItem = (data, i) => <View style={[{backgroundColor: data}, styles.item]} key={i}/>
+  _renderItem = (data: any, i: number) => <View style={[{backgroundColor: data}, styles.item]} key={i}/>
 
   render() {
     return (

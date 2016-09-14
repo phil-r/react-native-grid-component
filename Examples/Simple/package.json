@@ -3,11 +3,15 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "flow": "flow",
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
     "react": "15.3.1",
     "react-native": "0.33.0",
-    "react-native-grid-component": "0.0.3"
+    "react-native-grid-component": "next"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.30.0"
   }
 }

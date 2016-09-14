@@ -22,8 +22,8 @@ type Props = {
   itemsPerRow: number,
   onEndReached: () => void,
   rowHasChanged: (data1: any, data2: any) => boolean,
-  renderItem: (data: any, i: number) => void,
-  renderPlaceholder: (i: number) => void,
+  renderItem: (data: any, i: number) => React$Element<any>,
+  renderPlaceholder: (i: number) => React$Element<any>,
   data: Array<any>
 };
 
@@ -40,6 +40,9 @@ export default class Grid extends Component {
     onEndReached() {},
     rowHasChanged(r1, r2) {
       return r1 !== r2;
+    },
+    renderPlaceholder(i) {
+      return (<View key={i} style={{ width: width / this.props.itemsPerRow}} />);
     }
   }
   constructor(props: Object) {
@@ -59,7 +62,7 @@ export default class Grid extends Component {
     });
   }
 
-  _renderPlaceholder = (i: number) => (<View key={i} style={{ width: width / this.props.itemsPerRow}} />);
+  _renderPlaceholder = (i: number): React$Element<any> => (<View key={i} style={{ width: width / this.props.itemsPerRow}} />);
 
   _prepareData = (data: Array<any>) => {
     const rows = chunk(data, this.props.itemsPerRow);
@@ -79,7 +82,7 @@ export default class Grid extends Component {
           if (item) {
             return this.props.renderItem(item, i);
           } else { // render a placeholder
-            return this._renderPlaceholder(i) || this.props.renderPlaceholder(i);
+            return this.props.renderPlaceholder(i);
           }
         })}
       </View>
