@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
 
 [Full example code](Examples/Simple)
 
-
+## [TODO](https://github.com/phil-r/react-native-grid-component/projects/1)
 
 *WIP* *WIP* *WIP* *WIP* *WIP* *WIP* *WIP* *WIP*
 
@@ -55,11 +55,7 @@ const styles = StyleSheet.create({
 
 *WIP* *WIP* *WIP* *WIP* *WIP* *WIP* *WIP* *WIP*
 
-## TODO:
-- [x] Example
-- [ ] Props description
-- [ ] Lint
-- [ ] Check iOS
+
 
 
 
