@@ -47,16 +47,22 @@ const styles = StyleSheet.create({
 
 [Full example code](Examples/Simple)
 
+## Props
+
+`data` - Array that will be used to render items
+
+`renderItem` - function that accepts data and returns Element that will be rendered
+
+`itemsPerRow` (optional) - number of elements per one row
+
+`onEndReached` (optional) - function to call when the end of the grid reached (can be used to add new elements)
+
+`rowHasChanged` (optional) - function that is passed to ListView.DataSource to determine whether the row was updated
+
+`renderPlaceholder` (optional) - function that returns placeholder Elements that ere rendered to fill the space at the end of the grid
+
+
 ## [TODO](https://github.com/phil-r/react-native-grid-component/projects/1)
-
-*WIP* *WIP* *WIP* *WIP* *WIP* *WIP* *WIP* *WIP*
-
-:construction::construction::construction::construction::construction::construction::construction::construction::construction::construction::construction::construction:
-
-*WIP* *WIP* *WIP* *WIP* *WIP* *WIP* *WIP* *WIP*
-
-
-
 
 
 ISC License (ISC)
