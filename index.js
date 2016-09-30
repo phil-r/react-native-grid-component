@@ -9,14 +9,15 @@ import {
   StyleSheet,
   View,
   ListView,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 
-const {height, width} = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 
 // http://stackoverflow.com/questions/8495687/split-array-into-chunks
 // I don't see the reason to take lodash.chunk for this
-const chunk = (arr: Array<any>, n: number): Array<Array<any>> => Array.from(Array(Math.ceil(arr.length/n)), (_,i)=>arr.slice(i*n,i*n+n));
+const chunk = (arr: Array<any>, n: number): Array<Array<any>> =>
+  Array.from(Array(Math.ceil(arr.length / n)), (_, i) => arr.slice(i * n, (i * n) + n));
 
 type Props = {
   itemsPerRow: number,
@@ -32,64 +33,60 @@ type State = {
 };
 
 export default class Grid extends Component {
-  props: Props;
   state: State;
+  props: Props;
 
   static defaultProps = {
     itemsPerRow: 3,
     onEndReached() {},
     rowHasChanged(r1, r2) {
       return r1 !== r2;
-    }
+    },
   }
   constructor(props: Object) {
     super(props);
 
     const ds = new ListView.DataSource({
-      rowHasChanged: this.props.rowHasChanged
+      rowHasChanged: this.props.rowHasChanged,
     });
     this.state = {
-      dataSource: ds.cloneWithRows(this._prepareData(this.props.data))
+      dataSource: ds.cloneWithRows(this._prepareData(this.props.data)),
     };
   }
 
   componentWillReceiveProps(nextProps: Object) {
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(this._prepareData(nextProps.data))
+      dataSource: this.state.dataSource.cloneWithRows(this._prepareData(nextProps.data)),
     });
   }
 
   _prepareData = (data: Array<any>) => {
     const rows = chunk(data, this.props.itemsPerRow);
     if (rows.length) {
-      const lastRow = rows[rows.length-1];
-      for (let i=0; lastRow.length < this.props.itemsPerRow; i++) {
+      const lastRow = rows[rows.length - 1];
+      for (let i = 0; lastRow.length < this.props.itemsPerRow; i += 1) {
         lastRow.push(null);
       }
     }
     return rows;
   }
 
-  _renderPlaceholder = (i: number) => {
-    return (<View key={i} style={{ width: width / this.props.itemsPerRow}} />);
-  }
+  _renderPlaceholder = (i: number) =>
+    <View key={i} style={{ width: width / this.props.itemsPerRow }} />
 
-  _renderRow = (rowData: Array<any>, sectionID: number, rowID: number) => {
-    return (
-      <View style={styles.row}>
-        {rowData.map((item, i) => {
-          if (item) {
-            return this.props.renderItem(item, i);
-          } else { // render a placeholder
-            if (this.props.renderPlaceholder) {
-              return this.props.renderPlaceholder(i);
-            }
-            return this._renderPlaceholder(i);
-          }
-        })}
-      </View>
-    );
-  }
+  _renderRow = (rowData: Array<any>) =>
+    <View style={styles.row}>
+      {rowData.map((item, i) => {
+        if (item) {
+          return this.props.renderItem(item, i);
+        }
+        // render a placeholder
+        if (this.props.renderPlaceholder) {
+          return this.props.renderPlaceholder(i);
+        }
+        return this._renderPlaceholder(i);
+      })}
+    </View>
 
   render() {
     return (
@@ -98,7 +95,7 @@ export default class Grid extends Component {
           style={styles.list}
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
-          enableEmptySections={true}
+          enableEmptySections
           onEndReached={this.props.onEndReached}
           onEndReachedThreshold={height}
         />
@@ -109,16 +106,16 @@ export default class Grid extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   list: {
-    flex: 1
+    flex: 1,
   },
   row: {
     justifyContent: 'space-around',
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'flex-start',
-    flex: 1
-  }
+    flex: 1,
+  },
 });
