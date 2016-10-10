@@ -65,6 +65,12 @@ const styles = StyleSheet.create({
 ## [TODO](https://github.com/phil-r/react-native-grid-component/projects/1)
 
 
+
+## See also
+ - [React Native Buyscreen](https://github.com/appintheair/react-native-buyscreen)
+ - [React Native Looped Carousel](https://github.com/appintheair/react-native-looped-carousel)
+
+
 ISC License (ISC)
 -------
 
