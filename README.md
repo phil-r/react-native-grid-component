@@ -1,5 +1,9 @@
 # :black_square_button: [WIP] react-native-grid-component
 
+Easy to use grid component for your [react-native](https://github.com/facebook/react-native/) project. Supports iOS and Android.
+
+Based on [react-native framework](https://github.com/facebook/react-native/) by Facebook.
+
 ## Installation
 
 `npm install react-native-grid-component --save`
