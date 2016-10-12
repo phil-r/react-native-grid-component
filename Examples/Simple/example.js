@@ -31,6 +31,9 @@ export default class Simple extends Component {
         renderItem={this._renderItem}
         data={this.state.data}
         itemsPerRow={2}
+        itemHasChanged={(d1, d2) => d1 !== d2}
+        onEndReached={() =>
+          this.setState({ data: [...this.state.data, ...generateRandomColorsArray(21)] })}
       />
     );
   }

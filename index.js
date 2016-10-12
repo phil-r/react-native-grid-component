@@ -22,7 +22,7 @@ const chunk = (arr: Array<any>, n: number): Array<Array<any>> =>
 type Props = {
   itemsPerRow: number,
   onEndReached: () => void,
-  rowHasChanged: (data1: any, data2: any) => boolean,
+  itemHasChanged: (data1: any, data2: any) => boolean,
   renderItem: (data: any, i: number) => React$Element<any>,
   renderPlaceholder?: (i: number) => React$Element<any>,
   data: Array<any>
@@ -39,7 +39,7 @@ export default class Grid extends Component {
   static defaultProps = {
     itemsPerRow: 3,
     onEndReached() {},
-    rowHasChanged(r1, r2) {
+    itemHasChanged(r1, r2) {
       return r1 !== r2;
     },
   }
@@ -47,7 +47,7 @@ export default class Grid extends Component {
     super(props);
 
     const ds = new ListView.DataSource({
-      rowHasChanged: this.props.rowHasChanged,
+      rowHasChanged: (r1, r2) => r1.some((e, i) => props.itemHasChanged(e, r2[i])),
     });
     this.state = {
       dataSource: ds.cloneWithRows(this._prepareData(this.props.data)),
