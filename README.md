@@ -1,4 +1,7 @@
-# :black_square_button: [WIP] react-native-grid-component
+# :black_square_button: react-native-grid-component
+
+[![NPM version](http://img.shields.io/npm/v/react-native-grid-component.svg?style=flat)](https://www.npmjs.com/package/react-native-grid-component)
+[![Build Status](https://travis-ci.org/phil-r/react-native-grid-component.svg)](https://travis-ci.org/phil-r/react-native-grid-component)
 
 Easy to use grid component for your [react-native](https://github.com/facebook/react-native/) project. Supports iOS and Android.
 
@@ -31,7 +34,8 @@ class Simple extends Component {
         style={styles.list}
         renderItem={this._renderItem}
         data={['black', 'white', 'red', 'green', 'blue']}
-        itemsPerRow={2}/>
+        itemsPerRow={2}
+      />
     );
   }
 }
