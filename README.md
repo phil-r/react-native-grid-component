@@ -60,7 +60,7 @@ Name | propType | description
 --- | --- | --- | ---
 `data` *required*  | Array | Array that will be used to render items
 `renderItem` *required*  | func `(data: any, i: number) => React$Element` | function that accepts data and returns React Element that will be rendered for each `data` item
-`renderPlaceholder` (optional) | func `(i: number) => React$Element` | function that returns placeholder React Elements that ere rendered to fill the space at the end of the grid
+`renderPlaceholder` *optional* | func `(i: number) => React$Element` | function that returns placeholder React Elements that ere rendered to fill the space at the end of the grid
 `itemsPerRow` *optional* | number | number of elements per one row
 `onEndReached` *optional* | func | function that is called when the end of the grid reached (can be used to add new elements, like in [example](Examples/Simple))
 `itemHasChanged` *optional* | func `(data1: any, data2: any) => boolean` | function that is used in `rowHasChanged` function in `ListView.DataSource` to determine whether the row was updated. **IMPORTANT:** It's possible to get `null` as one or both of arguments, so you'll want to check for that ( e.g. `(d1, d2) => d1 && d2 ? d1.data !== d2.data : true`)
@@ -71,8 +71,8 @@ Name | propType | description
 
 
 ## See also
- - [React Native Buyscreen](https://github.com/appintheair/react-native-buyscreen)
  - [React Native Looped Carousel](https://github.com/appintheair/react-native-looped-carousel)
+ - [React Native Buyscreen](https://github.com/appintheair/react-native-buyscreen)
 
 
 ISC License (ISC)
