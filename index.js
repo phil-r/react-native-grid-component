@@ -98,6 +98,7 @@ export default class Grid extends Component {
           enableEmptySections
           onEndReached={this.props.onEndReached}
           onEndReachedThreshold={height}
+          refreshControl={this.props.refreshControl}
         />
       </View>
     );
