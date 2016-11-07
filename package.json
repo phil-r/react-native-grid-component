@@ -24,7 +24,7 @@
     "url": "https://github.com/phil-r/react-native-grid-component/issues"
   },
   "homepage": "https://github.com/phil-r/react-native-grid-component#readme",
-  "peerDependencies": {
+  "dependencies": {
     "react-native": ">=0.33.0",
     "react": ">=15.3.1"
   },
