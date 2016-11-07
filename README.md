@@ -61,6 +61,8 @@ Name | propType | description
 `data` *required*  | Array | Array that will be used to render items
 `renderItem` *required*  | func `(data: any, i: number) => React$Element` | function that accepts data and returns React Element that will be rendered for each `data` item
 `renderPlaceholder` *optional* | func `(i: number) => React$Element` | function that returns placeholder React Elements that ere rendered to fill the space at the end of the grid
+`renderFooter` *optional* | func `() => React$Element` | underlying ListView [renderFooter prop](https://facebook.github.io/react-native/docs/listview.html#renderfooter)
+`refreshControl` *optional* | func `() => React$Element` | underlying ListView [refreshControl prop](https://facebook.github.io/react-native/docs/refreshcontrol.html)
 `itemsPerRow` *optional* | number | number of elements per one row
 `onEndReached` *optional* | func | function that is called when the end of the grid reached (can be used to add new elements, like in [example](Examples/Simple))
 `itemHasChanged` *optional* | func `(data1: any, data2: any) => boolean` | function that is used in `rowHasChanged` function in `ListView.DataSource` to determine whether the row was updated. **IMPORTANT:** It's possible to get `null` as one or both of arguments, so you'll want to check for that ( e.g. `(d1, d2) => d1 && d2 ? d1.data !== d2.data : true`)
