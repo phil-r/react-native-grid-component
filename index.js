@@ -26,7 +26,7 @@ type Props = {
   renderItem: (data: any, i: number) => React$Element<any>,
   renderPlaceholder?: (i: number) => React$Element<any>,
   data: Array<any>,
-  refreshContorl: () => React$Element<any>,
+  refreshControl: () => React$Element<any>,
   renderFooter: () => React$Element<any>
 };
 
