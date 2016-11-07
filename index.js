@@ -25,7 +25,9 @@ type Props = {
   itemHasChanged: (data1: any, data2: any) => boolean,
   renderItem: (data: any, i: number) => React$Element<any>,
   renderPlaceholder?: (i: number) => React$Element<any>,
-  data: Array<any>
+  data: Array<any>,
+  refreshContorl:() => React$Element<any>,
+  renderFooter:() => React$Element<any>
 };
 
 type State = {
@@ -99,6 +101,7 @@ export default class Grid extends Component {
           onEndReached={this.props.onEndReached}
           onEndReachedThreshold={height}
           refreshControl={this.props.refreshControl}
+          renderFooter={this.props.renderFooter}
         />
       </View>
     );
