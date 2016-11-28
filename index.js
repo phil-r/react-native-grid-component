@@ -11,6 +11,7 @@ import {
   ListView,
   Dimensions,
 } from 'react-native';
+import _ from 'lodash';
 
 const { height, width } = Dimensions.get('window');
 
@@ -50,16 +51,37 @@ export default class Grid extends Component {
 
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1.some((e, i) => props.itemHasChanged(e, r2[i])),
+      sectionHeaderHasChanged: ( s1, s2 ) => s1 !== s2
     });
-    this.state = {
-      dataSource: ds.cloneWithRows(this._prepareData(this.props.data)),
-    };
+    if (props.sections == true) {
+      this.state = {
+        dataSource: ds.cloneWithRowsAndSections(this._prepareSectionedData(this.props.data))
+      }
+    } else {
+      this.state = {
+        dataSource: ds.cloneWithRows(this._prepareData(this.props.data)),
+      };
+    }
   }
 
   componentWillReceiveProps(nextProps: Object) {
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(this._prepareData(nextProps.data)),
+    if (nextProps.sections == true) {
+      this.state = {
+        dataSource: this.state.dataSource.cloneWithRowsAndSections(this._prepareSectionedData(nextProps.data))
+      }
+    }
+    else {
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(this._prepareData(nextProps.data)),
+      });
+    }
+  }
+
+  _prepareSectionedData = (data) => {
+    let preparedData = _.mapValues(data, (vals) => {
+      return this._prepareData(vals);
     });
+    return preparedData;
   }
 
   _prepareData = (data: Array<any>) => {
@@ -103,6 +125,7 @@ export default class Grid extends Component {
           onEndReachedThreshold={height}
           refreshControl={this.props.refreshControl}
           renderFooter={this.props.renderFooter}
+          renderSectionHeader={this.props.renderSectionHeader}
         />
       </View>
     );
