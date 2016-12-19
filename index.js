@@ -11,7 +11,6 @@ import {
   ListView,
   Dimensions,
 } from 'react-native';
-import _ from 'lodash';
 
 const { height, width } = Dimensions.get('window');
 
@@ -66,9 +65,9 @@ export default class Grid extends Component {
 
   componentWillReceiveProps(nextProps: Object) {
     if (nextProps.sections == true) {
-      this.state = {
+      this.setState({
         dataSource: this.state.dataSource.cloneWithRowsAndSections(this._prepareSectionedData(nextProps.data))
-      }
+      })
     }
     else {
       this.setState({
@@ -78,9 +77,10 @@ export default class Grid extends Component {
   }
 
   _prepareSectionedData = (data) => {
-    let preparedData = _.mapValues(data, (vals) => {
-      return this._prepareData(vals);
-    });
+    let preparedData = Object.keys(data).reduce(function(obj, vals) {
+      obj[vals] = this._prepareData(vals);
+      return obj;
+    }, {});
     return preparedData;
   }
 
