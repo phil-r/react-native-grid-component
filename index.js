@@ -52,9 +52,10 @@ export default class Grid extends Component {
       rowHasChanged: (r1, r2) => r1.some((e, i) => props.itemHasChanged(e, r2[i])),
       sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
     });
+
     if (props.sections === true) {
       this.state = {
-        dataSource: ds.cloneWithRowsAndSections(this._prepareSectionedData(this.props.data)),
+        dataSource: ds.cloneWithRowsAndSections(this._prepareSectionedData(props.data)),
       };
     } else {
       this.state = {
@@ -124,7 +125,8 @@ export default class Grid extends Component {
           onEndReachedThreshold={height}
           refreshControl={this.props.refreshControl}
           renderFooter={this.props.renderFooter}
-          renderSectionHeader={this.props.renderSectionHeader}
+          renderSectionHeader={this.props.renderSectionHeader === undefined ?
+            () => null : this.props.renderSectionHeader}
         />
       </View>
     );
