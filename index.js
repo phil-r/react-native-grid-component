@@ -50,12 +50,12 @@ export default class Grid extends Component {
 
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1.some((e, i) => props.itemHasChanged(e, r2[i])),
-      sectionHeaderHasChanged: ( s1, s2 ) => s1 !== s2
+      sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
     });
-    if (props.sections == true) {
+    if (props.sections === true) {
       this.state = {
-        dataSource: ds.cloneWithRowsAndSections(this._prepareSectionedData(this.props.data))
-      }
+        dataSource: ds.cloneWithRowsAndSections(this._prepareSectionedData(this.props.data)),
+      };
     } else {
       this.state = {
         dataSource: ds.cloneWithRows(this._prepareData(this.props.data)),
@@ -64,12 +64,12 @@ export default class Grid extends Component {
   }
 
   componentWillReceiveProps(nextProps: Object) {
-    if (nextProps.sections == true) {
+    if (nextProps.sections === true) {
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRowsAndSections(this._prepareSectionedData(nextProps.data))
-      })
-    }
-    else {
+        dataSource: this.state.dataSource
+          .cloneWithRowsAndSections(this._prepareSectionedData(nextProps.data)),
+      });
+    } else {
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(this._prepareData(nextProps.data)),
       });
@@ -77,10 +77,9 @@ export default class Grid extends Component {
   }
 
   _prepareSectionedData = (data) => {
-    let preparedData = Object.keys(data).reduce(function(obj, vals) {
-      obj[vals] = this._prepareData(vals);
-      return obj;
-    }, {});
+    const preparedData = Object.keys(data).reduce(
+      (obj, vals) => Object.assign({}, obj, { [vals]: this._prepareData(vals) })
+    , {});
     return preparedData;
   }
 
