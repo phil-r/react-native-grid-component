@@ -11,7 +11,6 @@ import {
   ListView,
   Dimensions,
 } from 'react-native';
-import _ from 'lodash';
 
 const { height, width } = Dimensions.get('window');
 
@@ -19,6 +18,16 @@ const { height, width } = Dimensions.get('window');
 // I don't see the reason to take lodash.chunk for this
 const chunk = (arr: Array<any>, n: number): Array<Array<any>> =>
   Array.from(Array(Math.ceil(arr.length / n)), (_, i) => arr.slice(i * n, (i * n) + n));
+
+const mapValues = (obj, callback) => {
+  const newObj = {};
+
+  Object.keys(obj).forEach((key) => {
+    newObj[key] = callback(obj[key]);
+  });
+
+  return newObj;
+};
 
 type Props = {
   itemsPerRow: number,
@@ -78,7 +87,7 @@ export default class Grid extends Component {
   }
 
   _prepareSectionedData = (data) => {
-    const preparedData = _.mapValues(data, (vals) => this._prepareData(vals));
+    const preparedData = mapValues(data, (vals) => this._prepareData(vals));
     return preparedData;
   }
 
