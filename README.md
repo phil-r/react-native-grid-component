@@ -9,7 +9,15 @@ Based on [react-native framework](https://github.com/facebook/react-native/) by 
 
 ## Installation
 
-`npm install react-native-grid-component --save`
+```
+npm install react-native-grid-component --save
+```
+
+or
+
+```
+yarn add react-native-grid-component
+```
 
 ## Example
 
