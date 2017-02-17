@@ -48,6 +48,10 @@ export default class Grid extends Component {
     itemHasChanged(r1, r2) {
       return r1 !== r2;
     },
+    renderFooter: () => null,
+    refreshControl: () => null,
+    renderPlaceholder: () => null,
+
   }
   constructor(props: Object) {
     super(props);
