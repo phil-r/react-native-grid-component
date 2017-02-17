@@ -16,7 +16,7 @@ const { height, width } = Dimensions.get('window');
 
 // http://stackoverflow.com/questions/8495687/split-array-into-chunks
 // I don't see the reason to take lodash.chunk for this
-const chunk = (arr: Array<any>, n: number): Array<Array<any>> =>
+const chunk = (arr, n) =>
   Array.from(Array(Math.ceil(arr.length / n)), (_, i) => arr.slice(i * n, (i * n) + n));
 
 const mapValues = (obj, callback) => {
@@ -29,24 +29,18 @@ const mapValues = (obj, callback) => {
   return newObj;
 };
 
-type Props = {
-  itemsPerRow: number,
-  onEndReached: () => void,
-  itemHasChanged: (data1: any, data2: any) => boolean,
-  renderItem: (data: any, i: number) => React$Element<any>,
-  renderPlaceholder?: (i: number) => React$Element<any>,
-  data: Array<any>,
-  refreshControl: () => React$Element<any>,
-  renderFooter: () => React$Element<any>
-};
-
-type State = {
-  dataSource: ListView.DataSource
-};
-
 export default class Grid extends Component {
-  state: State;
-  props: Props;
+
+  static propTypes = {
+    itemsPerRow: React.PropTypes.number,
+    onEndReached: React.PropTypes.func,
+    itemHasChanged: React.PropTypes.func,
+    renderItem: React.PropTypes.func.isRequired,
+    renderPlaceholder: React.PropTypes.func,
+    data: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
+    refreshControl: React.PropTypes.func,
+    renderFooter: React.PropTypes.func,
+  }
 
   static defaultProps = {
     itemsPerRow: 3,
@@ -73,7 +67,7 @@ export default class Grid extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps: Object) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.sections === true) {
       this.state = {
         dataSource: this.state.dataSource
@@ -86,12 +80,12 @@ export default class Grid extends Component {
     }
   }
 
-  _prepareSectionedData = (data) => {
+  _prepareSectionedData = data => {
     const preparedData = mapValues(data, (vals) => this._prepareData(vals));
     return preparedData;
   }
 
-  _prepareData = (data: Array<any>) => {
+  _prepareData = data => {
     const rows = chunk(data, this.props.itemsPerRow);
     if (rows.length) {
       const lastRow = rows[rows.length - 1];
@@ -102,10 +96,10 @@ export default class Grid extends Component {
     return rows;
   }
 
-  _renderPlaceholder = (i: number) =>
+  _renderPlaceholder = i =>
     <View key={i} style={{ width: width / this.props.itemsPerRow }} />
 
-  _renderRow = (rowData: Array<any>) =>
+  _renderRow = rowData =>
     <View style={styles.row}>
       {rowData.map((item, i) => {
         if (item) {

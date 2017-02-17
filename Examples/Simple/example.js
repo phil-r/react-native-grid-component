@@ -11,9 +11,8 @@ import {
 import Grid from 'react-native-grid-component';
 
 export default class Simple extends Component {
-  state: {data: Array<any>};
 
-  constructor(props: Object) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -21,7 +20,7 @@ export default class Simple extends Component {
     };
   }
 
-  _renderItem = (data: any, i: number) =>
+  _renderItem = (data, i) =>
     <View style={[{ backgroundColor: data }, styles.item]} key={i} />
 
   render() {
