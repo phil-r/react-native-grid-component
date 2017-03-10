@@ -10,7 +10,7 @@ import {
   View,
   ListView,
   Dimensions,
-  RefreshControl
+  RefreshControl,
 } from 'react-native';
 
 const { height, width } = Dimensions.get('window');
