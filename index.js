@@ -10,6 +10,7 @@ import {
   View,
   ListView,
   Dimensions,
+  RefreshControl
 } from 'react-native';
 
 const { height, width } = Dimensions.get('window');
@@ -38,7 +39,7 @@ export default class Grid extends Component {
     renderItem: React.PropTypes.func.isRequired,
     renderPlaceholder: React.PropTypes.func,
     data: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
-    refreshControl: React.PropTypes.func,
+    refreshControl: React.PropTypes.element,
     renderFooter: React.PropTypes.func,
   }
 
@@ -49,7 +50,7 @@ export default class Grid extends Component {
       return r1 !== r2;
     },
     renderFooter: () => null,
-    refreshControl: () => null,
+    refreshControl: <RefreshControl refreshing={false}/>,
     renderPlaceholder: () => null,
 
   }
