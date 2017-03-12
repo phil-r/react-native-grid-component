@@ -54,34 +54,19 @@ export default class Grid extends Component {
     renderPlaceholder: () => null,
   };
 
-  constructor(props: Object) {
-    super(props);
-
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1.some((e, i) => props.itemHasChanged(e, r2[i])),
-      sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
-    });
-    if (props.sections === true) {
-      this.state = {
-        dataSource: ds.cloneWithRowsAndSections(this._prepareSectionedData(this.props.data)),
-      };
-    } else {
-      this.state = {
-        dataSource: ds.cloneWithRows(this._prepareData(this.props.data)),
-      };
-    }
-  }
+  state = {
+    dataSource: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1.some((e, i) => props.itemHasChanged(e, r2[i])),
+        sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
+    }),
+  };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.sections === true) {
-      this.state = {
-        dataSource: this.state.dataSource
-          .cloneWithRowsAndSections(this._prepareSectionedData(nextProps.data)),
-      };
-    } else {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(this._prepareData(nextProps.data)),
-      });
+      this.state.dataSource = nextProps.sections
+          ? this.state.dataSource
+              .cloneWithRowsAndSections(this._prepareSectionedData(nextProps.data))
+          : this.state.dataSource
+              .cloneWithRows(this._prepareData(nextProps.data))
     }
   }
 
