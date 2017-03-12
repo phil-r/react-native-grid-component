@@ -38,9 +38,11 @@ export default class Grid extends Component {
     itemHasChanged: React.PropTypes.func,
     renderItem: React.PropTypes.func.isRequired,
     renderPlaceholder: React.PropTypes.func,
+    renderSectionHeader: React.PropTypes.func,
     data: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
     refreshControl: React.PropTypes.element,
     renderFooter: React.PropTypes.func,
+    sections: React.PropTypes.boolean,
   };
 
   static defaultProps = {
@@ -52,22 +54,24 @@ export default class Grid extends Component {
     renderFooter: () => null,
     refreshControl: <RefreshControl refreshing={false} />,
     renderPlaceholder: () => null,
+    renderSectionHeader: () => null,
+    sections: false,
+    data: [],
   };
 
   state = {
     dataSource: new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1.some((e, i) => props.itemHasChanged(e, r2[i])),
-        sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
+      rowHasChanged: (r1, r2) => r1.some((e, i) => this.props.itemHasChanged(e, r2[i])),
+      sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
     }),
   };
 
   componentWillReceiveProps(nextProps) {
-      this.state.dataSource = nextProps.sections
-          ? this.state.dataSource
-              .cloneWithRowsAndSections(this._prepareSectionedData(nextProps.data))
-          : this.state.dataSource
-              .cloneWithRows(this._prepareData(nextProps.data))
-    }
+    this.state.dataSource = nextProps.sections
+      ? this.state.dataSource
+        .cloneWithRowsAndSections(this._prepareSectionedData(nextProps.data))
+      : this.state.dataSource
+        .cloneWithRows(this._prepareData(nextProps.data));
   }
 
   _prepareSectionedData = data => {
@@ -89,7 +93,7 @@ export default class Grid extends Component {
   _renderPlaceholder = i =>
     <View key={i} style={{ width: width / this.props.itemsPerRow }} />;
 
-  _renderRow = rowData =>
+  _renderRow = rowData => (
     <View style={styles.row}>
       {rowData.map((item, i) => {
         if (item) {
@@ -101,7 +105,8 @@ export default class Grid extends Component {
         }
         return this._renderPlaceholder(i);
       })}
-    </View>;
+    </View>
+  );
 
   render() {
     return (
