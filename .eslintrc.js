@@ -28,5 +28,6 @@ module.exports = {
     "import/no-unresolved": 0,
     "react/sort-comp": 0,
     "react/jsx-filename-extension": 0,
+    "no-unused-prop-types": 0, // https://github.com/yannickcr/eslint-plugin-react/issues/885
   }
 };
