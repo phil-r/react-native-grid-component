@@ -33,6 +33,6 @@
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "6.10.0"
+    "eslint-plugin-react": "Kerumen/eslint-plugin-react#master"
   }
 }
