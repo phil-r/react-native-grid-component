@@ -50,7 +50,7 @@ export default class Grid extends Component {
       return r1 !== r2;
     },
     renderFooter: () => null,
-    refreshControl: <RefreshControl refreshing={false}/>,
+    refreshControl: <RefreshControl refreshing={false} />,
     renderPlaceholder: () => null,
 
   }
