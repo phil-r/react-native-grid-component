@@ -38,10 +38,12 @@ export default class Grid extends Component {
     itemHasChanged: React.PropTypes.func,
     renderItem: React.PropTypes.func.isRequired,
     renderPlaceholder: React.PropTypes.func,
+    renderSectionHeader: React.PropTypes.func,
     data: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
     refreshControl: React.PropTypes.element,
     renderFooter: React.PropTypes.func,
-  }
+    sections: React.PropTypes.boolean,
+  };
 
   static defaultProps = {
     itemsPerRow: 3,
@@ -52,43 +54,30 @@ export default class Grid extends Component {
     renderFooter: () => null,
     refreshControl: <RefreshControl refreshing={false} />,
     renderPlaceholder: () => null,
+    renderSectionHeader: () => null,
+    sections: false,
+    data: [],
+  };
 
-  }
-  constructor(props: Object) {
-    super(props);
-
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1.some((e, i) => props.itemHasChanged(e, r2[i])),
+  state = {
+    dataSource: new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1.some((e, i) => this.props.itemHasChanged(e, r2[i])),
       sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
-    });
-    if (props.sections === true) {
-      this.state = {
-        dataSource: ds.cloneWithRowsAndSections(this._prepareSectionedData(this.props.data)),
-      };
-    } else {
-      this.state = {
-        dataSource: ds.cloneWithRows(this._prepareData(this.props.data)),
-      };
-    }
-  }
+    }),
+  };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.sections === true) {
-      this.state = {
-        dataSource: this.state.dataSource
-          .cloneWithRowsAndSections(this._prepareSectionedData(nextProps.data)),
-      };
-    } else {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(this._prepareData(nextProps.data)),
-      });
-    }
+    this.state.dataSource = nextProps.sections
+      ? this.state.dataSource
+        .cloneWithRowsAndSections(this._prepareSectionedData(nextProps.data))
+      : this.state.dataSource
+        .cloneWithRows(this._prepareData(nextProps.data));
   }
 
   _prepareSectionedData = data => {
     const preparedData = mapValues(data, (vals) => this._prepareData(vals));
     return preparedData;
-  }
+  };
 
   _prepareData = data => {
     const rows = chunk(data, this.props.itemsPerRow);
@@ -99,12 +88,12 @@ export default class Grid extends Component {
       }
     }
     return rows;
-  }
+  };
 
   _renderPlaceholder = i =>
-    <View key={i} style={{ width: width / this.props.itemsPerRow }} />
+    <View key={i} style={{ width: width / this.props.itemsPerRow }} />;
 
-  _renderRow = rowData =>
+  _renderRow = rowData => (
     <View style={styles.row}>
       {rowData.map((item, i) => {
         if (item) {
@@ -117,6 +106,7 @@ export default class Grid extends Component {
         return this._renderPlaceholder(i);
       })}
     </View>
+  );
 
   render() {
     return (
