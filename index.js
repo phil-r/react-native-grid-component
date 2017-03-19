@@ -1,7 +1,6 @@
 /**
  * React Native Grid Component
  * https://github.com/phil-r/react-native-grid-component
- * @flow
  */
 
 import React, { Component } from 'react';
@@ -37,9 +36,11 @@ export default class Grid extends Component {
     itemHasChanged: React.PropTypes.func,
     renderItem: React.PropTypes.func.isRequired,
     renderPlaceholder: React.PropTypes.func,
+    renderSectionHeader: React.PropTypes.func,
     data: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
     refreshControl: React.PropTypes.element,
     renderFooter: React.PropTypes.func,
+    sections: React.PropTypes.boolean,
   }
 
   static defaultProps = {
@@ -51,9 +52,11 @@ export default class Grid extends Component {
     renderFooter: () => null,
     refreshControl: null,
     renderPlaceholder: () => null,
-
+    renderSectionHeader: () => null,
+    sections: false,
   }
-  constructor(props: Object) {
+
+  constructor(props) {
     super(props);
 
     const ds = new ListView.DataSource({
