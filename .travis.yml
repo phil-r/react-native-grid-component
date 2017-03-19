@@ -1,8 +1,11 @@
 language: node_js
 node_js:
-  - "6"
-  - "7"
-install:
-  - npm install
+  - 4
+  - 6
+  - 7
+  - stable
+cache: yarn
+  directories:
+    - node_modules
 script:
-  - npm run lint
+  - yarn run lint
