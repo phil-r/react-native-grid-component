@@ -2161,16 +2161,13 @@ react-deep-force-update@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-1.0.1.tgz#f911b5be1d2a6fe387507dd6e9a767aa2924b4c7"
 
-react-native-grid-component@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/react-native-grid-component/-/react-native-grid-component-1.0.3.tgz#8f22d0f452ec61ad3424fa4369f821c598917ccf"
-  dependencies:
-    react ">=15.3.1"
-    react-native ">=0.33.0"
+react-native-grid-component@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-grid-component/-/react-native-grid-component-1.0.5.tgz#501e53550ce669e6d0ad43df9dbd150c3c97f9b6"
 
-react-native@>=0.33.0, react-native@^0.41.2:
-  version "0.41.2"
-  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.41.2.tgz#c6f486b8450a9909e6fed2dfd2c2af946563bf4f"
+react-native@^0.42.3:
+  version "0.42.3"
+  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.42.3.tgz#450c8a03a5e3e991a08a426f22776dd8feb80b26"
   dependencies:
     absolute-path "^0.0.0"
     art "^0.10.0"
@@ -2266,7 +2263,7 @@ react-transform-hmr@^1.0.4:
     global "^4.3.0"
     react-proxy "^1.1.7"
 
-react@>=15.3.1, react@^15.4.2:
+react@^15.4.2:
   version "15.4.2"
   resolved "https://registry.yarnpkg.com/react/-/react-15.4.2.tgz#41f7991b26185392ba9bae96c8889e7e018397ef"
   dependencies:

@@ -10,7 +10,6 @@ import {
   View,
   ListView,
   Dimensions,
-  RefreshControl,
 } from 'react-native';
 
 const { height, width } = Dimensions.get('window');
@@ -50,7 +49,7 @@ export default class Grid extends Component {
       return r1 !== r2;
     },
     renderFooter: () => null,
-    refreshControl: <RefreshControl refreshing={false} />,
+    refreshControl: null,
     renderPlaceholder: () => null,
 
   }

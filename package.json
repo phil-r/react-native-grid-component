@@ -1,6 +1,6 @@
 {
   "name": "react-native-grid-component",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "React native grid component",
   "main": "index.js",
   "scripts": {
@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.0.0",
-    "eslint": "^3.6.1",
+    "eslint": "^3.18.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",

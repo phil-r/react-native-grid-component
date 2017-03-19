@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "react": "^15.4.2",
-    "react-native": "^0.41.2",
-    "react-native-grid-component": "^1.0.3"
+    "react-native": "^0.42.3",
+    "react-native-grid-component": "^1.0.5"
   }
 }
