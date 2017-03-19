@@ -41,7 +41,7 @@ export default class Grid extends Component {
     data: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
     refreshControl: React.PropTypes.element,
     renderFooter: React.PropTypes.func,
-  }
+  };
 
   static defaultProps = {
     itemsPerRow: 3,
@@ -52,8 +52,8 @@ export default class Grid extends Component {
     renderFooter: () => null,
     refreshControl: <RefreshControl refreshing={false} />,
     renderPlaceholder: () => null,
+  };
 
-  }
   constructor(props: Object) {
     super(props);
 
@@ -88,7 +88,7 @@ export default class Grid extends Component {
   _prepareSectionedData = data => {
     const preparedData = mapValues(data, (vals) => this._prepareData(vals));
     return preparedData;
-  }
+  };
 
   _prepareData = data => {
     const rows = chunk(data, this.props.itemsPerRow);
@@ -99,10 +99,10 @@ export default class Grid extends Component {
       }
     }
     return rows;
-  }
+  };
 
   _renderPlaceholder = i =>
-    <View key={i} style={{ width: width / this.props.itemsPerRow }} />
+    <View key={i} style={{ width: width / this.props.itemsPerRow }} />;
 
   _renderRow = rowData =>
     <View style={styles.row}>
@@ -116,7 +116,7 @@ export default class Grid extends Component {
         }
         return this._renderPlaceholder(i);
       })}
-    </View>
+    </View>;
 
   render() {
     return (
