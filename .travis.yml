@@ -1,10 +1,12 @@
+---
 language: node_js
 node_js:
   - 4
   - 6
   - 7
   - stable
-cache: yarn
+cache:
+  yarn: true
   directories:
     - node_modules
 script:
