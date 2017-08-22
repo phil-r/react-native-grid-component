@@ -61,12 +61,12 @@ const styles = StyleSheet.create({
 
 ```
 
-[Full example code](Examples/Simple)
+[Full interactive example](https://snack.expo.io/SyMjEV5dW)
 
 ## Props
 
 Name | propType | description
---- | --- | --- 
+--- | --- | ---
 `data` *required*  | Array | Array that will be used to render items
 `renderItem` *required*  | func `(data: any, i: number) => React$Element` | function that accepts data and returns React Element that will be rendered for each `data` item
 `renderPlaceholder` *optional* | func `(i: number) => React$Element` | function that returns placeholder React Elements that ere rendered to fill the space at the end of the grid
