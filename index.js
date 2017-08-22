@@ -4,6 +4,7 @@
  */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
@@ -31,16 +32,16 @@ const mapValues = (obj, callback) => {
 export default class Grid extends Component {
 
   static propTypes = {
-    itemsPerRow: React.PropTypes.number,
-    onEndReached: React.PropTypes.func,
-    itemHasChanged: React.PropTypes.func,
-    renderItem: React.PropTypes.func.isRequired,
-    renderPlaceholder: React.PropTypes.func,
-    renderSectionHeader: React.PropTypes.func,
-    data: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
-    refreshControl: React.PropTypes.element,
-    renderFooter: React.PropTypes.func,
-    sections: React.PropTypes.boolean,
+    itemsPerRow: PropTypes.number,
+    onEndReached: PropTypes.func,
+    itemHasChanged: PropTypes.func,
+    renderItem: PropTypes.func.isRequired,
+    renderPlaceholder: PropTypes.func,
+    renderSectionHeader: PropTypes.func,
+    data: PropTypes.arrayOf(PropTypes.any).isRequired,
+    refreshControl: PropTypes.element,
+    renderFooter: PropTypes.func,
+    sections: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -51,7 +52,7 @@ export default class Grid extends Component {
     },
     renderFooter: () => null,
     refreshControl: null,
-    renderPlaceholder: () => null,
+    renderPlaceholder: null,
     renderSectionHeader: () => null,
     sections: false,
   }
