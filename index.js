@@ -122,10 +122,19 @@ export default class Grid extends Component {
     </View>
 
   render() {
+    const {
+        renderPlaceholder,
+        renderItem,
+        itemsPerRow,
+        itemHasChanged,
+        data,
+        sections,
+        ...props
+    } = this.props;
     return (
       <View style={styles.container}>
         <ListView
-          {...this.props}
+          {...props}
           style={styles.list}
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
