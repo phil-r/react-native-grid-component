@@ -36,11 +36,14 @@ class Simple extends Component {
 
   _renderItem = (data, i) => <View style={[{backgroundColor: data}, styles.item]} key={i}/>
 
+  _renderPlaceholder = i => <View style={styles.item} key={i} />
+
   render() {
     return (
       <Grid
         style={styles.list}
         renderItem={this._renderItem}
+        renderPlaceholder={this._renderPlaceholder}
         data={['black', 'white', 'red', 'green', 'blue']}
         itemsPerRow={2}
       />
@@ -61,7 +64,7 @@ const styles = StyleSheet.create({
 
 ```
 
-[Full interactive example](https://snack.expo.io/SyMjEV5dW)
+[Full interactive example](https://snack.expo.io/@phil/react-native-grid-component-example)
 
 ## Props
 
@@ -89,7 +92,7 @@ Name | propType | description
 ISC License (ISC)
 -------
 
-Copyright (c) 2016, Phil Rukin <<philipp@rukin.me>>
+Copyright (c) 2016-2018, Phil Rukin <<philipp@rukin.me>>
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
