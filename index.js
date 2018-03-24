@@ -5,24 +5,21 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  StyleSheet,
-  View,
-  ListView,
-  Dimensions,
-} from 'react-native';
+import { StyleSheet, View, ListView, Dimensions } from 'react-native';
 
 const { height, width } = Dimensions.get('window');
 
 // http://stackoverflow.com/questions/8495687/split-array-into-chunks
 // I don't see the reason to take lodash.chunk for this
 const chunk = (arr, n) =>
-  Array.from(Array(Math.ceil(arr.length / n)), (_, i) => arr.slice(i * n, (i * n) + n));
+  Array.from(Array(Math.ceil(arr.length / n)), (_, i) =>
+    arr.slice(i * n, i * n + n)
+  );
 
 const mapValues = (obj, callback) => {
   const newObj = {};
 
-  Object.keys(obj).forEach((key) => {
+  Object.keys(obj).forEach(key => {
     newObj[key] = callback(obj[key]);
   });
 
@@ -40,8 +37,8 @@ export default class Grid extends Component {
     data: PropTypes.arrayOf(PropTypes.any).isRequired,
     refreshControl: PropTypes.element,
     renderFooter: PropTypes.func,
-    sections: PropTypes.bool,
-  }
+    sections: PropTypes.bool
+  };
 
   static defaultProps = {
     itemsPerRow: 3,
@@ -53,44 +50,50 @@ export default class Grid extends Component {
     refreshControl: null,
     renderPlaceholder: null,
     renderSectionHeader: () => null,
-    sections: false,
-  }
+    sections: false
+  };
 
   constructor(props) {
     super(props);
 
     const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1.some((e, i) => props.itemHasChanged(e, r2[i])),
-      sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
+      rowHasChanged: (r1, r2) =>
+        r1.some((e, i) => props.itemHasChanged(e, r2[i])),
+      sectionHeaderHasChanged: (s1, s2) => s1 !== s2
     });
     if (props.sections === true) {
       this.state = {
-        dataSource: ds.cloneWithRowsAndSections(this._prepareSectionedData(this.props.data)),
+        dataSource: ds.cloneWithRowsAndSections(
+          this._prepareSectionedData(this.props.data)
+        )
       };
     } else {
       this.state = {
-        dataSource: ds.cloneWithRows(this._prepareData(this.props.data)),
+        dataSource: ds.cloneWithRows(this._prepareData(this.props.data))
       };
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.sections === true) {
-      this.state = {
-        dataSource: this.state.dataSource
-          .cloneWithRowsAndSections(this._prepareSectionedData(nextProps.data)),
-      };
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRowsAndSections(
+          this._prepareSectionedData(nextProps.data)
+        )
+      });
     } else {
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(this._prepareData(nextProps.data)),
+        dataSource: this.state.dataSource.cloneWithRows(
+          this._prepareData(nextProps.data)
+        )
       });
     }
   }
 
   _prepareSectionedData = data => {
-    const preparedData = mapValues(data, (vals) => this._prepareData(vals));
+    const preparedData = mapValues(data, vals => this._prepareData(vals));
     return preparedData;
-  }
+  };
 
   _prepareData = data => {
     const rows = chunk(data, this.props.itemsPerRow);
@@ -101,10 +104,11 @@ export default class Grid extends Component {
       }
     }
     return rows;
-  }
+  };
 
-  _renderPlaceholder = i =>
+  _renderPlaceholder = i => (
     <View key={i} style={{ width: width / this.props.itemsPerRow }} />
+  );
 
   _renderRow = rowData => (
     <View style={styles.row}>
@@ -119,9 +123,11 @@ export default class Grid extends Component {
         return this._renderPlaceholder(i);
       })}
     </View>
-  )
+  );
 
   render() {
+    // TODO: find a better way to filter props that we pass to ListView
+    /* eslint-disable no-unused-vars */
     const {
       renderPlaceholder,
       renderItem,
@@ -131,6 +137,7 @@ export default class Grid extends Component {
       sections,
       ...props
     } = this.props;
+    /* eslint-enable no-unused-vars */
     return (
       <View style={styles.container}>
         <ListView
@@ -152,16 +159,16 @@ export default class Grid extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   list: {
-    flex: 1,
+    flex: 1
   },
   row: {
     justifyContent: 'space-around',
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'flex-start',
-    flex: 1,
-  },
+    flex: 1
+  }
 });
