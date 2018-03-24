@@ -20,9 +20,15 @@ or
 yarn add react-native-grid-component
 ```
 
-## Example
+## Examples
+
+* [Simple](https://snack.expo.io/@phil/react-native-grid-component-example)
+
+## Demo
 
 ![android low](https://cloud.githubusercontent.com/assets/577316/18456263/d6b977e2-794f-11e6-878f-5737355111ac.gif) ![ios low](https://cloud.githubusercontent.com/assets/577316/18456262/d6b7a39a-794f-11e6-8587-06757dc42e14.gif)
+
+## Usage
 
 ```js
 import React, { Component } from 'react';
