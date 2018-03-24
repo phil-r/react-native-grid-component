@@ -1,32 +1,15 @@
 module.exports = {
-  "parser": "babel-eslint",
-  "env": {
-    "es6": true
-  },
+  parser: 'babel-eslint',
 
-  "ecmaFeatures": {
-    "jsx": true
-  },
-
-  "extends": "airbnb",
-
-  "plugins": [
-    "react"
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:prettier/recommended'
   ],
 
-  "globals": {
-    // flow
-    "React$Element": false
-  },
+  plugins: ['react', 'prettier'],
 
-  "rules": {
-    // resets
-    "no-underscore-dangle": 0,
-    "arrow-parens": 0,
-    "no-use-before-define": 0,
-    "import/extensions": 0,
-    "import/no-unresolved": 0,
-    "react/sort-comp": 0,
-    "react/jsx-filename-extension": 0,
+  rules: {
+    'prettier/prettier': 'error'
   }
 };
