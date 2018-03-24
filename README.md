@@ -23,6 +23,7 @@ yarn add react-native-grid-component
 ## Examples
 
 * [Simple](https://snack.expo.io/@phil/react-native-grid-component-example)
+* [Sections](https://snack.expo.io/@phil/grid-with-sections-example)
 
 ## Demo
 
