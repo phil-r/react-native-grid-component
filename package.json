@@ -14,7 +14,12 @@
   "keywords": [
     "react",
     "native",
+    "react-native",
     "grid",
+    "table",
+    "cells",
+    "rows",
+    "columns",
     "component"
   ],
   "author": "Phil Rukin <philipp@rukin.me> (http://rukin.me)",
