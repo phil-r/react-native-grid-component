@@ -30,7 +30,6 @@ const mapValues = (obj, callback) => {
 };
 
 export default class Grid extends Component {
-
   static propTypes = {
     itemsPerRow: PropTypes.number,
     onEndReached: PropTypes.func,
@@ -107,7 +106,7 @@ export default class Grid extends Component {
   _renderPlaceholder = i =>
     <View key={i} style={{ width: width / this.props.itemsPerRow }} />
 
-  _renderRow = rowData =>
+  _renderRow = rowData => (
     <View style={styles.row}>
       {rowData.map((item, i) => {
         if (item) {
@@ -120,16 +119,17 @@ export default class Grid extends Component {
         return this._renderPlaceholder(i);
       })}
     </View>
+  )
 
   render() {
     const {
-        renderPlaceholder,
-        renderItem,
-        itemsPerRow,
-        itemHasChanged,
-        data,
-        sections,
-        ...props
+      renderPlaceholder,
+      renderItem,
+      itemsPerRow,
+      itemHasChanged,
+      data,
+      sections,
+      ...props
     } = this.props;
     return (
       <View style={styles.container}>
