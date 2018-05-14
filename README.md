@@ -1,7 +1,7 @@
 # :black_square_button: react-native-grid-component
 
 [![NPM version](http://img.shields.io/npm/v/react-native-grid-component.svg?style=flat)](https://www.npmjs.com/package/react-native-grid-component)
-[![Build Status](https://travis-ci.org/phil-r/react-native-grid-component.svg)](https://travis-ci.org/phil-r/react-native-grid-component)
+[![Build Status](https://travis-ci.org/phil-r/react-native-grid-component.svg?branch=master)](https://travis-ci.org/phil-r/react-native-grid-component)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 Easy to use grid component for your [react-native](https://github.com/facebook/react-native/) project. Supports iOS and Android.
