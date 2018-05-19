@@ -26,6 +26,24 @@ const mapValues = (obj, callback) => {
   return newObj;
 };
 
+const prepareData = ({ data, itemsPerRow }) => {
+  const rows = chunk(data, itemsPerRow);
+  if (rows.length) {
+    const lastRow = rows[rows.length - 1];
+    for (let i = 0; lastRow.length < itemsPerRow; i += 1) {
+      lastRow.push(null);
+    }
+  }
+  return rows;
+};
+
+const prepareSectionedData = ({ data, itemsPerRow }) => {
+  const preparedData = mapValues(data, vals =>
+    prepareData({ data: vals, itemsPerRow })
+  );
+  return preparedData;
+};
+
 export default class Grid extends Component {
   static propTypes = {
     itemsPerRow: PropTypes.number,
@@ -64,47 +82,29 @@ export default class Grid extends Component {
     if (props.sections === true) {
       this.state = {
         dataSource: ds.cloneWithRowsAndSections(
-          this._prepareSectionedData(this.props.data)
+          prepareSectionedData(this.props)
         )
       };
     } else {
       this.state = {
-        dataSource: ds.cloneWithRows(this._prepareData(this.props.data))
+        dataSource: ds.cloneWithRows(prepareData(this.props))
       };
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.sections === true) {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRowsAndSections(
-          this._prepareSectionedData(nextProps.data)
+      return {
+        dataSource: prevState.dataSource.cloneWithRowsAndSections(
+          prepareSectionedData(nextProps)
         )
-      });
+      };
     } else {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(
-          this._prepareData(nextProps.data)
-        )
-      });
+      return {
+        dataSource: prevState.dataSource.cloneWithRows(prepareData(nextProps))
+      };
     }
   }
-
-  _prepareSectionedData = data => {
-    const preparedData = mapValues(data, vals => this._prepareData(vals));
-    return preparedData;
-  };
-
-  _prepareData = data => {
-    const rows = chunk(data, this.props.itemsPerRow);
-    if (rows.length) {
-      const lastRow = rows[rows.length - 1];
-      for (let i = 0; lastRow.length < this.props.itemsPerRow; i += 1) {
-        lastRow.push(null);
-      }
-    }
-    return rows;
-  };
 
   _renderPlaceholder = i => (
     <View key={i} style={{ width: width / this.props.itemsPerRow }} />
