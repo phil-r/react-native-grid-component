@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "lint": "eslint --ignore-path .gitignore **/*.js",
-    "precommit": "pretty-quick --staged"
+    "lint": "eslint --ignore-path .gitignore **/*.js"
   },
   "repository": {
     "type": "git",
@@ -48,5 +47,10 @@
   },
   "prettier": {
     "singleQuote": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
