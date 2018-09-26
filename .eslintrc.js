@@ -11,5 +11,10 @@ module.exports = {
 
   rules: {
     'prettier/prettier': 'error'
+  },
+  settings: {
+    react: {
+      version: '16.3'
+    }
   }
 };
