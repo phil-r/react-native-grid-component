@@ -39,7 +39,7 @@
     "eslint-config-prettier": "^3.0.1",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.7.0",
-    "husky": "^0.14.3",
+    "husky": "^1.0.0",
     "prettier": "^1.11.1",
     "pretty-quick": "^1.4.1"
   },
