@@ -53,7 +53,6 @@ export default class Grid extends Component {
     numColumns: PropTypes.number,
     renderItem: PropTypes.func.isRequired,
     renderPlaceholder: PropTypes.func,
-    renderSectionHeader: PropTypes.func,
     data: PropTypes.arrayOf(PropTypes.any).isRequired,
     sections: PropTypes.bool,
     style: PropTypes.object
@@ -62,7 +61,6 @@ export default class Grid extends Component {
   static defaultProps = {
     itemsPerRow: 3,
     renderPlaceholder: null,
-    renderSectionHeader: () => null,
     sections: false
   };
 

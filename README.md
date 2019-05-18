@@ -11,7 +11,7 @@ Based on [react-native framework](https://github.com/facebook/react-native/) by 
 ## Installation
 
 ```
-npm install react-native-grid-component --save
+npm install react-native-grid-component
 ```
 
 or
@@ -22,8 +22,8 @@ yarn add react-native-grid-component
 
 ## Examples
 
-* [Simple](https://snack.expo.io/@phil/react-native-grid-component-example)
-* [Sections](https://snack.expo.io/@phil/grid-with-sections-example)
+- [Simple](https://snack.expo.io/@phil/react-native-grid-component-example)
+- [Sections](https://snack.expo.io/@phil/grid-with-sections-example)
 
 ## Demo
 
@@ -51,7 +51,7 @@ class Simple extends Component {
         renderItem={this._renderItem}
         renderPlaceholder={this._renderPlaceholder}
         data={['black', 'white', 'red', 'green', 'blue']}
-        itemsPerRow={2}
+        numColumns={2}
       />
     );
   }
@@ -73,27 +73,25 @@ const styles = StyleSheet.create({
 
 ## Props
 
-| Name                           | propType                                       | description                                                                                                                                                                                                                                                                               |
-| ------------------------------ | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `data` _required_              | Array                                          | Array that will be used to render items                                                                                                                                                                                                                                                   |
-| `renderItem` _required_        | func `(data: any, i: number) => React$Element` | function that accepts data and returns React Element that will be rendered for each `data` item                                                                                                                                                                                           |
-| `renderPlaceholder` _optional_ | func `(i: number) => React$Element`            | function that returns placeholder React Elements that ere rendered to fill the space at the end of the grid                                                                                                                                                                               |
-| `renderFooter` _optional_      | func `() => React$Element`                     | underlying ListView [renderFooter prop](https://facebook.github.io/react-native/docs/listview.html#renderfooter)                                                                                                                                                                          |
-| `refreshControl` _optional_    | func `() => React$Element`                     | underlying ListView [refreshControl prop](https://facebook.github.io/react-native/docs/refreshcontrol.html)                                                                                                                                                                               |
-| `itemsPerRow` _optional_       | number                                         | number of elements per one row                                                                                                                                                                                                                                                            |
-| `onEndReached` _optional_      | func                                           | function that is called when the end of the grid reached (can be used to add new elements, like in [example](Examples/Simple))                                                                                                                                                            |
-| `itemHasChanged` _optional_    | func `(data1: any, data2: any) => boolean`     | function that is used in `rowHasChanged` function in `ListView.DataSource` to determine whether the row was updated. **IMPORTANT:** It's possible to get `null` as one or both of arguments, so you'll want to check for that ( e.g. `(d1, d2) => d1 && d2 ? d1.data !== d2.data : true`) |
+| Name                           | propType                                       | description                                                                                                 |
+| ------------------------------ | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `data` _required_              | Array                                          | Array that will be used to render items                                                                     |
+| `renderItem` _required_        | func `(data: any, i: number) => React$Element` | function that accepts data and returns React Element that will be rendered for each `data` item             |
+| `renderPlaceholder` _optional_ | func `(i: number) => React$Element`            | function that returns placeholder React Elements that ere rendered to fill the space at the end of the grid |
+| `numColumns` _optional_        | number                                         | number of elements per one row                                                                              |
+| `keyExtractor` _optional_      | func `(item: object, index: number) => string` | [see docs](https://facebook.github.io/react-native/docs/flatlist#keyextractor)                              |
+| `sections` _optional_          | bool                                           | switches internal implementation to [SectionList](https://facebook.github.io/react-native/docs/sectionlist) |
 
-## [TODO](https://github.com/phil-r/react-native-grid-component/projects/1)
+Also see [FlatList](https://facebook.github.io/react-native/docs/flatlist#props) props or [SectionList](https://facebook.github.io/react-native/docs/sectionlist#props) props(if you set `sections` to true)
 
 ## See also
 
-* [React Native Looped Carousel](https://github.com/appintheair/react-native-looped-carousel)
-* [React Native Buyscreen](https://github.com/appintheair/react-native-buyscreen)
+- [React Native Looped Carousel](https://github.com/appintheair/react-native-looped-carousel)
+- [React Native Buyscreen](https://github.com/appintheair/react-native-buyscreen)
 
 ## ISC License (ISC)
 
-Copyright (c) 2016-2018, Phil Rukin <mailto:<philipp@rukin.me>>
+Copyright (c) 2016-2019, Phil Rukin <mailto:<philipp@rukin.me>>
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 

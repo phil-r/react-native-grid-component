@@ -22,7 +22,7 @@
     "columns",
     "component"
   ],
-  "author": "Phil Rukin <philipp@rukin.me> (http://rukin.me)",
+  "author": "Phil Rukin <philipp@rukin.me> (https://rukin.me)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/phil-r/react-native-grid-component/issues"
