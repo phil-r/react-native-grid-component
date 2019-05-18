@@ -5,9 +5,15 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, ListView, Dimensions } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Dimensions,
+  FlatList,
+  SectionList
+} from 'react-native';
 
-const { height, width } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 // http://stackoverflow.com/questions/8495687/split-array-into-chunks
 // I don't see the reason to take lodash.chunk for this
@@ -16,56 +22,45 @@ const chunk = (arr, n) =>
     arr.slice(i * n, i * n + n)
   );
 
-const mapValues = (obj, callback) => {
-  const newObj = {};
-
-  Object.keys(obj).forEach(key => {
-    newObj[key] = callback(obj[key]);
-  });
-
-  return newObj;
+const prepareData = ({ data, numColumns, itemsPerRow }) => {
+  const missing = data.length % (numColumns || itemsPerRow);
+  return [
+    ...data,
+    ...Array.from(Array(missing)).map(() => ({ __empty: true }))
+  ];
 };
 
-const prepareData = ({ data, itemsPerRow }) => {
-  const rows = chunk(data, itemsPerRow);
-  if (rows.length) {
-    const lastRow = rows[rows.length - 1];
-    for (let i = 0; lastRow.length < itemsPerRow; i += 1) {
-      lastRow.push(null);
-    }
+const prepareSectionedData = ({ data, numColumns, itemsPerRow }) => {
+  const col = numColumns || itemsPerRow;
+  if (Array.isArray(data)) {
+    return data.map(row => ({
+      ...row,
+      data: chunk(prepareData({ data: row.data, numColumns: col }), col)
+    }));
+  } else if (typeof data === 'object') {
+    // support of v1
+    return Object.keys(data).map(title => ({
+      title,
+      data: chunk(prepareData({ data: data[title], numColumns: col }), col)
+    }));
   }
-  return rows;
-};
-
-const prepareSectionedData = ({ data, itemsPerRow }) => {
-  const preparedData = mapValues(data, vals =>
-    prepareData({ data: vals, itemsPerRow })
-  );
-  return preparedData;
+  return [];
 };
 
 export default class Grid extends Component {
   static propTypes = {
     itemsPerRow: PropTypes.number,
-    onEndReached: PropTypes.func,
-    itemHasChanged: PropTypes.func,
+    numColumns: PropTypes.number,
     renderItem: PropTypes.func.isRequired,
     renderPlaceholder: PropTypes.func,
     renderSectionHeader: PropTypes.func,
     data: PropTypes.arrayOf(PropTypes.any).isRequired,
-    refreshControl: PropTypes.element,
-    renderFooter: PropTypes.func,
-    sections: PropTypes.bool
+    sections: PropTypes.bool,
+    style: PropTypes.object
   };
 
   static defaultProps = {
     itemsPerRow: 3,
-    onEndReached() {},
-    itemHasChanged(r1, r2) {
-      return r1 !== r2;
-    },
-    renderFooter: () => null,
-    refreshControl: null,
     renderPlaceholder: null,
     renderSectionHeader: () => null,
     sections: false
@@ -73,46 +68,49 @@ export default class Grid extends Component {
 
   constructor(props) {
     super(props);
-
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) =>
-        r1.some((e, i) => props.itemHasChanged(e, r2[i])),
-      sectionHeaderHasChanged: (s1, s2) => s1 !== s2
-    });
     if (props.sections === true) {
       this.state = {
-        dataSource: ds.cloneWithRowsAndSections(
-          prepareSectionedData(this.props)
-        )
+        data: prepareSectionedData(this.props)
       };
     } else {
       this.state = {
-        dataSource: ds.cloneWithRows(prepareData(this.props))
+        data: prepareData(this.props)
       };
     }
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps) {
     if (nextProps.sections === true) {
       return {
-        dataSource: prevState.dataSource.cloneWithRowsAndSections(
-          prepareSectionedData(nextProps)
-        )
+        data: prepareSectionedData(nextProps)
       };
     } else {
       return {
-        dataSource: prevState.dataSource.cloneWithRows(prepareData(nextProps))
+        data: prepareData(nextProps)
       };
     }
   }
 
-  _renderPlaceholder = i => (
-    <View key={i} style={{ width: width / this.props.itemsPerRow }} />
+  _renderPlaceholder = () => (
+    <View style={{ width: width / this.props.itemsPerRow }} />
   );
 
-  _renderRow = rowData => (
+  _renderItem = ({ item, index }) => {
+    if (item) {
+      if (typeof item === 'object' && item.__empty) {
+        // render a placeholder
+        if (this.props.renderPlaceholder) {
+          return this.props.renderPlaceholder(index);
+        }
+        return this._renderPlaceholder(index);
+      }
+      return this.props.renderItem(item, index);
+    }
+  };
+
+  _renderRow = ({ item }) => (
     <View style={styles.row}>
-      {rowData.map((item, i) => {
+      {item.map((item, i) => {
         if (item) {
           return this.props.renderItem(item, i);
         }
@@ -132,26 +130,33 @@ export default class Grid extends Component {
       renderPlaceholder,
       renderItem,
       itemsPerRow,
-      itemHasChanged,
-      data,
       sections,
+      style,
+      data,
+      numColumns, // To depricate itemsPerRow
       ...props
     } = this.props;
     /* eslint-enable no-unused-vars */
+
     return (
       <View style={styles.container}>
-        <ListView
-          {...props}
-          style={styles.list}
-          dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
-          enableEmptySections
-          onEndReached={this.props.onEndReached}
-          onEndReachedThreshold={height}
-          refreshControl={this.props.refreshControl}
-          renderFooter={this.props.renderFooter}
-          renderSectionHeader={this.props.renderSectionHeader}
-        />
+        {sections ? (
+          <SectionList
+            {...props}
+            sections={this.state.data}
+            numColumns={numColumns || itemsPerRow}
+            style={[styles.list, style]}
+            renderItem={this._renderRow}
+          />
+        ) : (
+          <FlatList
+            {...props}
+            data={this.state.data}
+            numColumns={numColumns || itemsPerRow}
+            style={[styles.list, style]}
+            renderItem={this._renderItem}
+          />
+        )}
       </View>
     );
   }

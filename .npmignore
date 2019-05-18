@@ -1,3 +1,9 @@
+# Example
+example/
+
+# Travis
+.travis.yml
+
 # Logs
 logs
 *.log
