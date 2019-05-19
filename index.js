@@ -23,10 +23,11 @@ const chunk = (arr, n) =>
   );
 
 const prepareData = ({ data, numColumns, itemsPerRow }) => {
-  const missing = data.length % (numColumns || itemsPerRow);
+  const col = numColumns || itemsPerRow;
+  const missing = data.length % col;
   return [
     ...data,
-    ...Array.from(Array(missing)).map(() => ({ __empty: true }))
+    ...Array.from(Array(col - missing)).map(() => ({ __empty: true }))
   ];
 };
 
