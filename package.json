@@ -40,7 +40,7 @@
     "eslint-plugin-react": "^7.7.0",
     "husky": "^3.0.0",
     "prettier": "^1.11.1",
-    "pretty-quick": "^1.4.1"
+    "pretty-quick": "^2.0.0"
   },
   "dependencies": {
     "prop-types": "^15.5.10"
